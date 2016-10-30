@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	>
+<h:head>
+	<style type="text/css">
+<!--
+span.cls_007 {
+	font-family: Times, serif;
+	font-size: 37.6px;
+	color: rgb(0, 0, 0);
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none
+}
+
+div.cls_007 {
+	font-family: Times, serif;
+	font-size: 37.6px;
+	color: rgb(0, 0, 0);
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none
+}
+
+span.cls_003 {
+	font-family: Times, serif;
+	font-size: 17.0px;
+	color: rgb(0, 0, 0);
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none
+}
+
+div.cls_003 {
+	font-family: Times, serif;
+	font-size: 17.0px;
+	color: rgb(0, 0, 0);
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none
+}
+
+span.cls_004 {
+	font-family: Times, serif;
+	font-size: 13.2px;
+	color: rgb(0, 0, 0);
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none
+}
+
+div.cls_004 {
+	font-family: Times, serif;
+	font-size: 13.2px;
+	color: rgb(0, 0, 0);
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none
+}
+
+span.cls_008 {
+	font-family: Arial, serif;
+	font-size: 11.3px;
+	color: rgb(0, 0, 0);
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none
+}
+
+div.cls_008 {
+	font-family: Arial, serif;
+	font-size: 11.3px;
+	color: rgb(0, 0, 0);
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none
+}
+-->
+</style>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js" />
+	<script src="jquery-3.1.1.min.js" />
+</h:head>
+<h:body id="render_me">
+	<div
+		style="position: absolute; left: 50%; margin-left: -396px; top: 0px; width: 792px; height: 612px; border-style: outset; overflow: hidden">
+		<div style="position: absolute; left: 30px; top: 60px">
+			<img src="logo-top.png" width="165" height="110"></img>
+		</div>
+		<div style="position: absolute; left: 267.48px; top: 186.01px"
+			class="cls_007">
+			<span class="cls_007">CERTIFICADO</span>
+		</div>
+		<div style="position: absolute; left: 75.60px; top: 291.37px"
+			class="cls_003">
+			<span class="cls_003">A Faculdade Integrada da Grande
+				Fortaleza certifica que</span>
+		</div>
+		<div style="position: absolute; left: 201.96px; top: 332.63px"
+			class="cls_003">
+			<span class="cls_003"><h:outputText id="output"
+					value="#{certificateBean.certificate.lecturer}" /></span>
+		</div>
+		<div style="position: absolute; left: 63.24px; top: 382.43px"
+			class="cls_004">
+			<span class="cls_004"><h:outputText escape="false" id="area"
+					value="#{certificateBean.certificate.text}" /></span>
+		</div>
+		<div style="position: absolute; left: 540.50px; top: 486.00px"
+			class="cls_004">
+			<span class="cls_004">Fortaleza/CE, <h:outputText
+					value="#{certificateBean.certificate.eventDateStr}" />.
+			</span>
+		</div>
+		<div style="position: absolute; left: 294.24px; top: 537.48px"
+			class="cls_008">
+			<span class="cls_008">Profa. Drª Viviane Mamede Vasconcelos</span>
+		</div>
+		<div style="position: absolute; left: 293.28px; top: 550.32px"
+			class="cls_008">
+			<span class="cls_008">Coordenadora do Curso de Enfermagem</span>
+		</div>
+	</div>
+	<h:form id="form">
+		<h:inputHidden id="source" value="#{certificateBean.html}" />
+		<h:commandButton icon="ui-icon-print" value="Imprimir"
+			actionListener="#{certificateBean.renderResponse()}"
+			onclick="document.getElementById('form:source').value=document.getElementsByTagName('html')[0].outerHTML" />
+		
+	</h:form>
+
+</h:body>
+
+</html>
