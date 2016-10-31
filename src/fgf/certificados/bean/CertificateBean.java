@@ -1,79 +1,69 @@
 package fgf.certificados.bean;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.tool.xml.XMLWorkerHelper;
+import org.primefaces.model.UploadedFile;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.export.Exporter;
 
 @ManagedBean
 @ViewScoped
 public class CertificateBean {
+
 	private Certificate certificate = new Certificate();
 	private String html;
+	private UploadedFile logo;
+	private UploadedFile signature;
+	
 	@PostConstruct
 	public void init() {
-		Certificate certificate = (Certificate) FacesContext.getCurrentInstance()
-				.getExternalContext().getSessionMap()
+		Certificate certificate = (Certificate) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("certificate");
-		
-		if(certificate != null) {
+
+		if (certificate != null) {
 			this.certificate = certificate;
+
+			try {
+				CertificateReportGenerator report = new CertificateReportGenerator(certificate);
+				report.generateReport();
+			} catch (FileNotFoundException | JRException e) {
+				e.printStackTrace();
+			}
 		}
-	}
-	
-	public void renderResponse() {
-		try {
-		    OutputStream file = new FileOutputStream(new File("/home/tony/certificado_"+certificate.getLecturer()+".pdf"));
-		    Document document = new Document();
-		    PdfWriter writer = PdfWriter.getInstance(document, file);
-		    document.open();
-		    InputStream is = new ByteArrayInputStream(html.getBytes());
-		    XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
-		    document.close();
-		    file.close();
-		} catch (Exception e) {
-		    e.printStackTrace();
-		}
-	}
-	
-	public void generateReport() throws JRException, FileNotFoundException {
-
-	    Map<String, Object> parametros = new HashMap<String, Object>();
-	    
-	    JasperPrint print = JasperFillManager.fillReport("certificate.jasper", parametros);
-
-	    JRExporter exporter = new JRPdfExporter();
-	    exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
-	    exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, new FileOutputStream("/home/tony/gasto_por_mes.pdf"));
-	    exporter.exportReport();
 
 	}
-	
+
 	public String generateCertificate() {
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("certificate", certificate);
+		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
+				.getContext();
+		String path = servletContext.getRealPath("/") + "resources/";
 		
+		if(logo != null && logo.getFileName() != null && !logo.getFileName().isEmpty()) {
+			try {
+				logo.write(path + logo.getFileName());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if(signature != null && signature.getFileName() != null && !signature.getFileName().isEmpty()) {
+			try {
+				signature.write(path + signature.getFileName());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		certificate.setPathLogo(path + logo.getFileName());
+		certificate.setPathSignature(path + signature.getFileName());
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("certificate", certificate);
+
 		return "certificate.xhtml?faces-redirect=true";
 	}
 
@@ -92,4 +82,21 @@ public class CertificateBean {
 	public void setHtml(String html) {
 		this.html = html;
 	}
+
+	public UploadedFile getLogo() {
+		return logo;
+	}
+
+	public void setLogo(UploadedFile logo) {
+		this.logo = logo;
+	}
+
+	public UploadedFile getSignature() {
+		return signature;
+	}
+
+	public void setSignature(UploadedFile signature) {
+		this.signature = signature;
+	}
+
 }

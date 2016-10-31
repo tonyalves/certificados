@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="certificate" language="java" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1fcd3c60-8e00-4670-99ac-69c7a6bf9bc7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="20"/>
+	<field name="lecturer" class="java.lang.String"/>
+	<field name="text" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="243" height="79" uuid="8029b1f1-de47-418c-8cc9-2df7d6bcb5c7"/>
+				<imageExpression><![CDATA["/home/tony/Documentos/certificate_test/logo-top.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="72" splitType="Stretch">
+			<staticText>
+				<reportElement x="243" y="22" width="306" height="50" uuid="f01dd74b-4c51-48a3-b276-1aeffbffac0f"/>
+				<textElement>
+					<font fontName="Symbola" size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CERTIFICADO]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="82" splitType="Stretch">
+			<staticText>
+				<reportElement x="19" y="39" width="403" height="35" uuid="bd095b9c-72e2-467a-8372-a406b32da8b3"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[A Faculdade Integrada da Grande Fortaleza certifica que]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<columnFooter>
+		<band height="109" splitType="Stretch">
+			<textField>
+				<reportElement x="186" y="0" width="324" height="20" uuid="62e06c2e-56c6-4d51-adb2-a5b0f7fb2dd1"/>
+				<textFieldExpression><![CDATA[$F{lecturer}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="61" y="31" width="628" height="63" uuid="42f1b652-5dd1-49ce-a203-93462bd17274"/>
+				<textFieldExpression><![CDATA[$F{text}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="68" splitType="Stretch">
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="621" y="48" width="100" height="20" uuid="afaa5635-4531-478b-a171-67ae4ce00df9"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

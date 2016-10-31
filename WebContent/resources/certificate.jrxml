@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="certificate" pageWidth="792" pageHeight="480" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1fcd3c60-8e00-4670-99ac-69c7a6bf9bc7">
+	<property name="ireport.zoom" value="6.727499949325615"/>
+	<property name="ireport.x" value="1403"/>
+	<property name="ireport.y" value="2799"/>
+	<field name="lecturer" class="java.lang.String"/>
+	<field name="text" class="java.lang.String"/>
+	<field name="signature" class="java.lang.String"/>
+	<field name="office" class="java.lang.String"/>
+	<field name="pathLogo" class="java.lang.String"/>
+	<field name="pathSignature" class="java.lang.String"/>
+	<field name="eventDateStr" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="106" splitType="Stretch">
+			<image>
+				<reportElement x="16" y="27" width="243" height="79" uuid="8029b1f1-de47-418c-8cc9-2df7d6bcb5c7"/>
+				<imageExpression><![CDATA["/home/tony/Documentos/certificate_test/logo-top.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="494" y="27" width="243" height="79" uuid="42a31395-cb5a-4844-995b-6cf6fa66d199"/>
+				<imageExpression><![CDATA[$F{pathLogo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="72" splitType="Stretch">
+			<staticText>
+				<reportElement x="233" y="22" width="306" height="50" uuid="f01dd74b-4c51-48a3-b276-1aeffbffac0f"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CERTIFICADO]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="142" splitType="Stretch">
+			<staticText>
+				<reportElement x="51" y="10" width="403" height="35" uuid="bd095b9c-72e2-467a-8372-a406b32da8b3"/>
+				<textElement textAlignment="Justified">
+					<font fontName="SansSerif" size="14"/>
+				</textElement>
+				<text><![CDATA[A Faculdade Integrada da Grande Fortaleza certifica que]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="170" y="45" width="324" height="20" uuid="62e06c2e-56c6-4d51-adb2-a5b0f7fb2dd1"/>
+				<textElement markup="styled">
+					<font size="16" isBold="true" isStrikeThrough="false" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="1_1_2" spacingAfter="30"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lecturer}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="51" y="79" width="628" height="63" uuid="42f1b652-5dd1-49ce-a203-93462bd17274"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{text}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="118" splitType="Stretch">
+			<staticText>
+				<reportElement x="466" y="20" width="100" height="20" uuid="d9e0c143-bba9-4126-8c7f-cabbc07b0453"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Fortaleza/CE,]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="243" y="78" width="211" height="20" uuid="701f703d-efae-4f15-8887-22e07dda3a45"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{signature}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="243" y="88" width="211" height="20" uuid="83a3ba83-9b5d-4216-8463-9e25ebfd3306"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{office}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="243" y="40" width="223" height="38" uuid="0c88dd07-f6c8-4531-8c45-1e3f83b843b7"/>
+				<imageExpression><![CDATA[$F{pathSignature}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="576" y="20" width="176" height="20" uuid="f80e35ec-daa8-4f7d-bdcc-c7a5daeb109c"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{eventDateStr}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

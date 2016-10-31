@@ -1,10 +1,8 @@
 package fgf.certificados.bean;
 
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+
+import fgf.certificados.util.DateUtil;
 
 
 public class Certificate {
@@ -12,24 +10,23 @@ public class Certificate {
 	private String event;
 	private String text;
 	private Date eventDate;
-
+	private String signature;
+	private String office;
+	private String eventDateStr;
+	private String pathLogo;
+	private String pathSignature;
+	
 	public String getEventDateStr() {
-		Calendar calendar = new GregorianCalendar();
-		calendar.setTime(eventDate);
-
-		int day = calendar.get(Calendar.DAY_OF_MONTH);
-		String month = getMonth(calendar.get(Calendar.MONTH));
-		int year = calendar.get(Calendar.YEAR);
+		if(eventDate == null)
+			return null;
 		
-		return day+" de "+month+" de "+year;
+		eventDateStr = new DateUtil().formattedDate(eventDate, " de ");
+		
+		return eventDateStr;
 	}
 
-	public String getMonth(int month) {
-		List<String> months = Arrays.asList("Janeiro", "Fevereiro", "Março", "Abril",
-				"Maio", "Junho", "Julho", "Agosto", "Setembro",
-				"Outubro", "Novembro", "Dezembro");
-		
-		return months.get(month - 1);
+	public void setEventDateStr(String eventDateStr) {
+		this.eventDateStr = eventDateStr;
 	}
 	
 	public Certificate() {
@@ -52,6 +49,10 @@ public class Certificate {
 	}
 
 	public String getText() {
+		if(text == null) {
+			text = "Ministrou a atividade intitulada: “NOME_DO_EVENTO”, realizada na "
+			+"LOCAL_DO_EVENTO, em DATA_DO_EVENTO.";
+		}
 		return text;
 	}
 
@@ -66,6 +67,36 @@ public class Certificate {
 	public void setEventDate(Date eventDate) {
 		this.eventDate = eventDate;
 	}
-	
-	
+
+	public String getSignature() {
+		return signature;
+	}
+
+	public void setSignature(String signature) {
+		this.signature = signature;
+	}
+
+	public String getOffice() {
+		return office;
+	}
+
+	public void setOffice(String office) {
+		this.office = office;
+	}
+
+	public String getPathLogo() {
+		return pathLogo;
+	}
+
+	public void setPathLogo(String pathLogo) {
+		this.pathLogo = pathLogo;
+	}
+
+	public String getPathSignature() {
+		return pathSignature;
+	}
+
+	public void setPathSignature(String pathSignature) {
+		this.pathSignature = pathSignature;
+	}
 }
