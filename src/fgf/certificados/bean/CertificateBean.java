@@ -70,6 +70,7 @@ public class CertificateBean {
 		certificate.setPathLogo(path + logo.getFileName());
 		certificate.setPathSignature(path + signature.getFileName());
 		certificate.setPathToGenerate(path);
+		certificate.setLogoFGF(path + "logo-top.png");
 		CertificateReportGenerator report = null;
 		try {
 			report = new CertificateReportGenerator(certificate);

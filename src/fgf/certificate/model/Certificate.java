@@ -17,6 +17,7 @@ public class Certificate {
 	private String pathSignature;
 	private String pathToGenerate;
 	private String certificateDate;
+	private String logoFGF ;
 	
 	public String getEventDateStr() {
 		if(eventDate == null)
@@ -126,6 +127,14 @@ public class Certificate {
 
 	public void setCertificateDate(String certificateDate) {
 		this.certificateDate = certificateDate;
+	}
+
+	public String getLogoFGF() {
+		return logoFGF;
+	}
+
+	public void setLogoFGF(String logoFGF) {
+		this.logoFGF = logoFGF;
 	}
 	
 	

@@ -102,7 +102,8 @@ public class CertificateCSVBean {
 				certificate.setPathLogo(path + logo.getFileName());
 				certificate.setPathSignature(path + signature.getFileName());
 				certificate.setPathToGenerate(pathGenerator);
-				
+				certificate.setLogoFGF(path + "logo-top.png");
+
 				certificate.setLecturer(lineSplited[1]);
 				certificate.setText(lineSplited[0], lineSplited[2], eventLocation);
 				certificates.add(certificate);
