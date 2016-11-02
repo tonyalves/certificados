@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
 import fgf.certificados.util.DateUtil;
+import fgf.certificate.model.Certificate;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -20,7 +21,8 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 public class CertificateReportGenerator {
 	private Certificate certificate;
-
+	private String filePDFName;
+	
 	public CertificateReportGenerator(Certificate certificate) {
 		this.certificate = certificate;
 	}
@@ -42,13 +44,18 @@ public class CertificateReportGenerator {
 		JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(certificates);
 
 		JasperPrint print = JasperFillManager.fillReport(path + "certificate.jasper", parametros, beanColDataSource);
-
-		JasperExportManager.exportReportToPdfFile(print,
-				path + "certificate_" + certificate.getLecturer() + "_" + formattedCurrentDate() + ".pdf");
+		if (print.getPages().size() > 1)
+			print.removePage(1);
+		filePDFName =  "certificate_" + certificate.getLecturer() + "_" + formattedCurrentDate() + ".pdf";
+		JasperExportManager.exportReportToPdfFile(print, certificate.getPathToGenerate() + filePDFName);
 	}
 
 	public String formattedCurrentDate() {
 		DateUtil util = new DateUtil();
 		return util.formattedDate(new Date(), "_");
+	}
+	
+	public String getFilePDFName() {
+		return filePDFName;
 	}
 }

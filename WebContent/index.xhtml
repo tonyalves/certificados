@@ -1,26 +1,19 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3c.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	>
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
+	<link href="resources/style.css" type="text/css" />
 </h:head>
 <h:body>
 	<h:form enctype="multipart/form-data">
 		<p:tabView>
 			<p:tab title="Cadastrar certificado">
-				<div class="ui-fluid">
-					<p:panelGrid columns="2"
-						columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid"
-						styleClass="ui-panelgrid-blank">
-						<p:growl id="messages" showDetail="true" />
-
-						<p:fileUpload value="#{certificateBean.logo}" mode="simple" 
-							skinSimple="true" label="Logo do Evento" > 
-						</p:fileUpload>	
+				<h:panelGrid columns="2">
+					
 
 						<p:outputLabel for="input" value="Palestrante" />
-						<p:inputText id="input"
+						<p:inputText id="input" size="70"
 							value="#{certificateBean.certificate.lecturer}" />
 
 						<p:outputLabel for="area" value="Texto do certificado" />
@@ -40,15 +33,45 @@
 
 						<p:fileUpload value="#{certificateBean.signature}" mode="simple"
 							skinSimple="true" label="Assinatura" />
+						<p:fileUpload value="#{certificateBean.logo}" mode="simple"
+							skinSimple="true" label="Logo do Evento">
+						</p:fileUpload>
 
-						<br />
 						<p:commandButton value="Gerar certificado" ajax="false"
+							styleClass="btnDefault"
 							action="#{certificateBean.generateCertificate()}" />
-					</p:panelGrid>
-				</div>
+					
+				</h:panelGrid>
 			</p:tab>
 			<p:tab title="Importar CSV">
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Gerar em: " />
+					<p:inputText value="#{certificateCSVBean.pathGenerator}" />
+					<p:outputLabel value="Arquivo CSV" />
+					<p:fileUpload value="#{certificateCSVBean.csv}" mode="simple"
+						skinSimple="true" label="Procurar..." />
 
+					<p:outputLabel for="areaCSV" value="Texto do certificado" />
+					<p:editor id="areaCSV"
+						value="#{certificateCSVBean.certificate.text}" />
+
+					<p:outputLabel for="signatureCSV" value="Assinatura" />
+					<p:inputText id="signatureCSV"
+						value="#{certificateCSVBean.certificate.signature}" />
+
+					<p:outputLabel for="signatureOfficeCSV" value="Cargo" />
+					<p:inputText id="signatureOfficeCSV"
+						value="#{certificateCSVBean.certificate.office}" />
+
+					<p:fileUpload value="#{certificateCSVBean.signature}" mode="simple"
+						skinSimple="true" label="Assinatura" />
+
+					<p:fileUpload value="#{certificateCSVBean.logo}" mode="simple"
+						skinSimple="true" label="Logo do Evento">
+					</p:fileUpload>
+					<p:commandButton value="Gerar certificados" ajax="false"
+						action="#{certificateCSVBean.uploadCSV()}" />
+				</h:panelGrid>
 			</p:tab>
 		</p:tabView>
 	</h:form>

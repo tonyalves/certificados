@@ -4,12 +4,15 @@ import java.io.FileNotFoundException;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
 import org.primefaces.model.UploadedFile;
 
+import fgf.certificados.service.CertificateService;
+import fgf.certificate.model.Certificate;
 import net.sf.jasperreports.engine.JRException;
 
 @ManagedBean
@@ -17,55 +20,42 @@ import net.sf.jasperreports.engine.JRException;
 public class CertificateBean {
 
 	private Certificate certificate = new Certificate();
-	private String html;
+	
 	private UploadedFile logo;
 	private UploadedFile signature;
 	
+	@ManagedProperty(value = "#{certificateService}")
+	private CertificateService service;
+
 	@PostConstruct
 	public void init() {
-		Certificate certificate = (Certificate) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
-				.get("certificate");
-
-		if (certificate != null) {
-			this.certificate = certificate;
-
-			try {
-				CertificateReportGenerator report = new CertificateReportGenerator(certificate);
-				report.generateReport();
-			} catch (FileNotFoundException | JRException e) {
-				e.printStackTrace();
-			}
-		}
-
 	}
+
 
 	public String generateCertificate() {
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String path = servletContext.getRealPath("/") + "resources/";
-		
-		if(logo != null && logo.getFileName() != null && !logo.getFileName().isEmpty()) {
-			try {
-				logo.write(path + logo.getFileName());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		if(signature != null && signature.getFileName() != null && !signature.getFileName().isEmpty()) {
-			try {
-				signature.write(path + signature.getFileName());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
+
+		service.writeImageToFile(logo, path);
+		service.writeImageToFile(signature, path);
+
 		certificate.setPathLogo(path + logo.getFileName());
 		certificate.setPathSignature(path + signature.getFileName());
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("certificate", certificate);
+		certificate.setPathToGenerate(path);
+		CertificateReportGenerator report = null;
+		try {
+			report = new CertificateReportGenerator(certificate);
+			report.generateReport();
+		} catch (FileNotFoundException | JRException e) {
+			e.printStackTrace();
+		}
 
-		return "certificate.xhtml?faces-redirect=true";
+		String pathPDF = report.getFilePDFName();
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("certificatePDFName", pathPDF);
+		return "certificatePDF.xhtml?faces-redirect=true";
 	}
+
 
 	public Certificate getCertificate() {
 		return certificate;
@@ -73,14 +63,6 @@ public class CertificateBean {
 
 	public void setCertificate(Certificate certificate) {
 		this.certificate = certificate;
-	}
-
-	public String getHtml() {
-		return html;
-	}
-
-	public void setHtml(String html) {
-		this.html = html;
 	}
 
 	public UploadedFile getLogo() {
@@ -99,4 +81,15 @@ public class CertificateBean {
 		this.signature = signature;
 	}
 
+
+	public CertificateService getService() {
+		return service;
+	}
+
+
+	public void setService(CertificateService service) {
+		this.service = service;
+	}
+
+	
 }

@@ -1,4 +1,4 @@
-package fgf.certificados.bean;
+package fgf.certificate.model;
 
 import java.util.Date;
 
@@ -15,6 +15,7 @@ public class Certificate {
 	private String eventDateStr;
 	private String pathLogo;
 	private String pathSignature;
+	private String pathToGenerate;
 	
 	public String getEventDateStr() {
 		if(eventDate == null)
@@ -98,5 +99,13 @@ public class Certificate {
 
 	public void setPathSignature(String pathSignature) {
 		this.pathSignature = pathSignature;
+	}
+
+	public String getPathToGenerate() {
+		return pathToGenerate;
+	}
+
+	public void setPathToGenerate(String pathToGenerate) {
+		this.pathToGenerate = pathToGenerate;
 	}
 }
