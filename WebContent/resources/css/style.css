@@ -1,22 +1,979 @@
-btnDefault {
-	background-color:#44c767;
-	-moz-border-radius:28px;
-	-webkit-border-radius:28px;
-	border-radius:28px;
-	border:1px solid #18ab29;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:17px;
-	padding:16px 31px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #2f6627;
+@charset UTF-8;
+*
+{
+margin:0;
+padding:0;
+color: black;
 }
-.myButton:hover {
-	background-color:#5cbf2a;
+
+.ui-widget-overlay {
+	background: #eee url(#{ resource [ 
+		 'primefaces-calldesk:images/ui-bg_flat_0_eeeeee_40x100.png' ]
 }
-.myButton:active {
-	position:relative;
-	top:1px;
+
+.exit2 .ui-button-text:hover {
+	background: #352f88 !important;
+}
+
+h2{
+	font-family: helvetica;
+	margin-bottom: 8px;
+	margin-top: 8px;
+}
+
+h3, h4, h5, h6{
+	font-family: helvetica;
+	margin-top: 5px;
+	margin-bottom: auto;
+}
+
+.delete-buttom .ui-button-text {
+	background: #CC0000 !important;
+	margin: 0px !important;
+}
+
+.delete-buttom .ui-button-text:hover {
+	background: #ef6161 !important;
+}
+
+.delete-buttom {
+	background: red !important;
+}
+
+.margem-left-0 {
+	margin-left: 0 !important;
+}
+
+body {
+	color: black!importat;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.footer {
+	color: white !important;
+}
+
+.backgroundDialog {
+	background: white !important;
+}
+
+.ui-button-text .ui-c {
+	color: white !important;
+}
+
+.ui-selectonemenu, .ui-selectonemenu-label {
+	width: 220px !important;
+}
+
+.submenu .ui-icon .ui-icon-triangle-1-e {
+	background: red !important;
+}
+
+.ui-icon {
+	color: white !important;
+}
+
+#formcustomer {
+	background: white !important;
+}
+
+.ui-tabs {
+	background: white !important;
+}
+
+.branco {
+	background: red !important;
+}
+
+.ui-panel {
+	padding: 0.0em !important;
+	border: 10px solid #cccccc !important;
+}
+
+.ui-datatable .ui-datatable-data .odd-row td {
+	background-color: #d9d9d9 !important;
+}
+
+.ui-datatable .ui-datatable-data .even-row td {
+	background-color: #fafafa !important;
+}
+
+#portalMenuBar .ui-widget-content {
+	border: 0 solid #DFD9C3 !important;
+}
+
+#wrapper {
+	min-height: 100%;
+	position: relative;
+}
+
+/*Fundo do elemento data table -------------------------------------- */
+.datat .ui-datatable-tablewrapper  .ui-state-default {
+	
+}
+/* borda externa do datable -------------------------------------- */
+.ui-datatable-tablewrapper {
+	
+}
+
+.ui-widget-header {
+	border: 1px solid #bbb;
+	background: #ddd url(#{ resource [ 
+		 'primefaces-calldesk:images/ui-bg_glass_35_dddddd_1x400.png' ]
+})
+	50% 50% repeat-x;
+	color: #444;
+	font-weight: 700;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default,
+	.ui-widget-header .ui-state-default {
+	border: 1px solid #ccc;
+	background: #eee url(#{ resource [ 
+		 'primefaces-calldesk:images/ui-bg_glass_60_eeeeee_1x400.png' ]
+})
+	50% 50% repeat-x;
+	font-weight: 700;
+	color: #3383bb;
+}
+
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited
+	{
+	color: #3383bb;
+	text-decoration: none;
+}
+
+.ui-widget:active {
+	outline: none;
+}
+
+.datat .ui-inputtext {
+	background: white !important;
+}
+
+.ui-inputtext {
+	border: 1px solid #cccccc !important;
+}
+
+.datat .ui-datatable-tablewrapper * {
+	
+}
+
+.ui-selectonemenu {
+	width: 220px !important;
+	border: 1px solid #cccccc !important;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger {
+	position: absolute !important;
+	right: -10px !important;
+}
+
+.datat .ui-inputfield {
+	border: 1px solid #cccccc !important;
+	background: white !important;
+}
+
+.botao {
+	
+}
+
+.ui-corner-all {
+	border: none !important;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+}
+
+.ui-state-default .ui-tabs-selected {
+	background: red !important;
+}
+
+.ui-outputlabel {
+	border: none !important;
+}
+
+.ui-paginator * {
+	border: none !important;
+}
+
+.ui-column-filter .ui-inputfield {
+	border: 1px solid #cccccc !important;
+	background: white !important;
+}
+
+.ui-inputfield {
+	margin: 2px;
+	background: #F8F8F8 !important;
+	border: 1px solid #DCDCDC !important;
+	border-radius: 2px !important;
+	box-shadow: 0 0 1px #DCDCDC !important;
+	color: #272626 !important;
+	width: 220px;
+}
+
+.ui-inputfield.ui-state-focus {
+	border: 1px solid #74b2e4 !important;
+}
+
+.ui-paginator-first {
+	
+}
+
+.ui-paginator-prev {
+	
+}
+
+.ui-paginator-next {
+	
+}
+
+.ui-paginator-last {
+	
+}
+
+.ui-paginator-pages {
+	border: none !important;
+}
+
+.ui-paginator-page {
+	color: #000 !important;
+	background: #FFF !important;
+}
+
+.datat .ui-sortable-column-icon {
+	border: none !important;
+}
+
+.datat .ui-column-title {
+	border: none !important;
+}
+
+.datat .ui-column-resizer {
+	border: none !important;
+}
+
+.ui-button-text {
+	background: #1b4794;
+	border-radius: 3px;
+	color: black !important;
+}
+
+.ui-button-text:hover {
+	color: #ffffff;
+	background: #3383bb;
+	text-decoration: none;
+}
+
+.ui-button.ui-state-hover .ui-button.ui-state-active {
+	background: pink !important;
+}
+
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button
+	{
+	font-family: Trebuchet MS, Helvetica, Arial, sans-serif;
+	font-size: 1em;
+}
+
+.ui-slider-horizontal .ui-slider-handle {
+	background: #3390cd !important;
+}
+
+.ui-columntoggler-items {
+	background: #f2f2f2 !important;
+	color: white !important;
+}
+
+.ui-columntoggler-item {
+	color: white !important;
+}
+
+.ui-chkbox-box {
+	border: 1px solid #b1acac !important;
+}
+
+.ui-selectonemenu-panel .ui-widget-content {
+	background: #c9c9c9 !important;
+}
+
+.datat .ui-selectonebutton {
+	border: none !important;
+}
+
+.ui-spinner-button {
+	
+}
+
+.datat .ui-column-customfilter {
+	border: none !important;
+}
+
+/*bodrdas internas -------------------------------------- */
+.ui-datatable-tablewrapper .ui-sortable-column {
+	
+}
+
+/*botĆµes de opĆ§Ć£o -------------------------------------- */
+.ui-paginator .ui-paginator-rpp-options {
+	background: #f2f2f2 !important;
+	color: #6f6f6f !important;
+}
+
+.ui-paginator .ui-paginator-rpp-options hover {
+	background: #cccccc !important;
+	color: #6f6f6f !important;
+}
+
+/*estado ativo de um botĆ£o do daatable -------------------------------------- */
+.datat .ui-datatable-tablewrapper .ui-state-active {
+	background: white !important;
+	color: white !important;
+}
+
+.ui-datatable .ui-inputfield {
+	
+}
+
+.ui-selectonemenu-label, .colstyle, .wdthAuto {
+	width: auto !important;
+}
+
+#portalMenuBar .ui-corner-all {
+	border-radius: 0 !important;
+}
+
+.ui-panelgrid-cell {
+	background: white;
+}
+
+.ui-inputfield {
+	color: #272626 !important;
+}
+
+.ui-panel {
+	border: 1px solid #ccc !important;
+	border-bottom: 0 solid #FFF !important;
+	padding: 0 !important;
+}
+
+.ui-corner-all {
+	border: none !important;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+}
+
+.ui-panel {
+	
+}
+
+.datat .ui-resizable-column {
+	padding-bottom: 10px !important;
+}
+
+.redColoredPanel .ui-panel-titlebar {
+	color: red;
+}
+
+.leftAlignedPanel {
+	float: left;
+}
+
+/*CalendĆ�rio pĆ�gina inicial -------------------------------------- */
+#inline {
+	margin-top: 85px !important;
+}
+
+/*RelatĆ³rio reportviewcustomer2 -------------------------------------- */
+.ui-datatable .ui-datatable-header {
+	background: #262262 !important;
+	color: white !important;
+	border: 0;
+}
+
+.ui-panel {
+	
+}
+
+.ui-tabs .ui-tabs-nav {
+	background: white !important;
+	border-bottom: 1px solid #dfd9c3 !important;
+	border-top: 0px solid white !important;
+}
+
+.ui-menubar .ui-menuitem-link {
+	padding: 0.4em 1.3em !important;
+}
+
+.ui-menu .ui-button {
+	margin: 0;
+}
+
+.ui-menu {
+	background: #262262 !important;
+	border-radius: 0 !important;
+	margin: 0;
+}
+
+.ui-menu .ui-menuitem-link .ui-menuitem-icon {
+	display: inline-block;
+    float: left;
+    color: white;
+}
+
+.atendimento {
+	background: red !important;
+}
+
+.ui-menubar .ui-menu-child .ui-menuitem-link {
+	width: 130px !important;
+}
+
+.painelconclusao {
+	background: red !important;
+}
+
+#portalMenuBar {
+	border-bottom: 1px solid white !important;
+	width: 100.2%;
+}
+
+.ui-panel {
+	border-bottom: 3px solid white !important;
+	width: 100%;
+}
+
+/* Ajusta o width das colunas do datatable
+.ui-datatable table {
+   table-layout: auto !important;
+}
+*/
+.ui-notificationbar {
+	background: white !important;
+}
+
+.ui-notificationbar {
+	border: 2px solid gray;
+}
+
+.ui-notificationbar  .ui-button {
+	margin: 5px;
+}
+
+/*retirada da cor e borda dos tolbar externos dos botĆµes -------------------------------------- */
+.ui-toolbar {
+	background: white !important;
+	border: none !important;
+}
+
+/* Rretirada das bordas e fundo dos paineis que dĆ£o tĆ­tulo das pĆ�ginas -------------------------------------- */
+.ui-panel-titlebar {
+	background: #eeeeee !important;
+	border: 1px solid #f2f2f2 !important;
+	color: black !important;
+	padding: 5px !important;
+	-webkit-border-radius: 0px !important;
+	-moz-border-radius: 0px !important;
+	border-radius: 0px !important;
+}
+
+.ui-state-default .ui-corner-left {
+	
+}
+
+.ui-tabs-nav {
+	background: yellow;
+}
+
+.ui-layout-unit-content #layoutCenter {
+	
+}
+
+.force-required-target {
+	
+}
+
+.cqp-main-panel {
+	border: 3px solid white !important;
+	margin: 0px !important;
+}
+
+.ui-panel-content .ui-widget-content {
+	
+}
+
+.ui-state-default .ui-corner-left .ui-state-focus .ui-tabs-selected .ui-state-active
+	{
+	background: red !important;
+}
+
+.ui-paginator {
+	background: #ebedf0 !important;
+	border: none !important;
+	border-top: 1px solid #cccccc !important;
+	border-left: 1px solid #cccccc !important;
+	border-right: 1px solid #cccccc !important;
+	padding-bottom: 4px !important;
+	padding-top: 4px !important;
+}
+
+.ui-panelgrid td, .ui-panelgrid tr {
+	border-style: none !important
+}
+
+.ui-menubar {
+	color: blue;
+	background: #262262;
+}
+
+.ui-widget {
+	font-size: 13px !important;
+}
+
+.element.style {
+	margin-top: 40px;
+}
+
+.cqp-main-panel {
+	border: 1px solid #dfd9c3;
+	width: 100% !important; 50% top repeat-x;
+	color: black;
+	background: #f5f3e5;
+	height: 77% !important;
+}
+
+.cqp-main-panel-content {
+	background: white;
+ 	min-height: 630px !important; 
+	padding-top: 5px !important;
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+}
+
+.ui-panel-content {
+	
+}
+
+.main-footer {
+	color: white !important;
+	font-weight: bold;
+	text-shadow: 1px 1px 9px #000000;
+	margin: 8px !important;
+	font-family: Arial, Sans-Serif;
+}
+
+.ui-panel .ui-panel-content {
+	background: white !important;
+}
+
+.font-size-small {
+	margin-top: 7px;
+	color: balck !important;
+}
+
+.font-size-small-member {
+	margin-top: 7px;
+	color: white !important;
+	font-weight: bold;
+	text-shadow: 2px 2px 9px #000000;
+}
+
+.ui-menu .ui-menuitem-text {
+	color: white !important;
+}
+
+.ui-widget  .teste .ui-widget {
+	background: #262262 !important;
+}
+
+.ui-datatable-tablewrapper {
+	
+}
+
+.ui-datatable-resizable .th.ui-resizable-column {
+	
+}
+
+.ui-menu .ui-menu-parent .ui-menu-child {
+	height: auto;
+	z-index: 1002;
+	left: 0px;
+	border: none;
+	margin: 0;
+	background: #262262;
+}
+
+.ui-accordion-content {
+	background: white !important;
+}
+
+.ui-fieldset {
+	background: white !important;
+}
+
+.ui-fieldset .ui-fieldset-legend {
+	background: #f2f2f2;
+	color: black !important;
+	border: #cccccc 1px solid !important;
+}
+
+.ui-fieldset {
+	margin: 10px;
+	color: white !important;
+}
+
+.ui-menuitem-link .ui-submenu-link .ui-corner-all .ui-state-hover {
+	background: red !important;
+}
+
+.teste {
+	margin: 0;
+	width: 100% !important;
+	background: #352f88 !important;
+}
+
+.ui-menubar .ui-menuitem-link:hover {
+	color: white !important;
+	background: #352f88 !important;
+}
+
+.ui-datatable thead th {
+	color: white !important;
+}
+
+.teste .ui-state-hover {
+	background: #352f88 !important;
+	color: white !important;
+}
+
+.ui-tabs-nav .ui-state-active {
+	background: white !important;
+	color: white !important;
+}
+
+.ui-panel .ui-panel-content {
+	background: white !important;
+	border: 0;
+	padding: 0.5em 0.3em !important;
+}
+
+.ui-icon {
+	
+}
+
+div[id="login-form:growl-result-message_container"] {
+	position: absolute;
+	top: 20px;
+	left: 40%;
+}
+
+.fundoBranco {
+	background: white !important;
+}
+
+.ui-layout-unit .ui-layout-unit-content {
+	border: none !important;
+	background: white !important;
+}
+
+.ui-layout-unit {
+	background: white !important;
+}
+
+fieldset {
+	
+}
+
+.cqp-panel-goup-center {
+	display: block;
+	text-align: center;
+}
+
+.cqp-login-panel {
+	display: inline-block;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 350px;
+	height: 200px;
+	margin: auto;
+}
+
+.cqp-atendimento-fieldset {
+	font-size: 11px !important;
+}
+
+.cqp-atendimento-panelgrid {
+	font-size: 13px !important;
+}
+
+.cqp-atendimento-dataTable {
+	font-size: 13px !important;
+	border: none !important;
+	text-align: center;
+}
+
+.cqp-dataTable {
+	font-size: 13px !important;
+	border: none !important;
+	text-align: center;
+	width: 300px;
+}
+
+.cqp-layout-south {
+	display: inline-block;
+	position: center;
+	overflow: hidden !important;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.cqp-layout-south .ui-layout-unit-content {
+	overflow: hidden !important;
+}
+
+.cqp-layout-north {
+	display: inline-block;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 172px !important;
+}
+
+.atdm-accordionpanel {
+	border: 1px solid #2F4F4F;
+	color: white;
+	background-color: #2E4d7B;
+	font-family: Arial, Sans-Serif;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 5px;
+	margin-top: 5px;
+	cursor: pointer;
+}
+
+.accordionMenu .ui-menu {
+	width: 100% !important;
+}
+
+.accordionMenu .ui-accordion-content {
+	padding: 0 !important;
+	overflow: inherit !important;
+}
+
+.accordionMenu .ui-helper-clearfix:after {
+	height: inherit !important;
+}
+
+.dataTable-agendamento {
+	font-size: 8px !important;
+	border: none !important;
+	text-align: center;
+	width: 100px !important;
+}
+
+.dataTable-agendamento-column {
+	font-size: 8px !important;
+	border: none !important;
+	text-align: center;
+	width: 100px !important;
+}
+
+.ui-radiobutton .ui-widget {
+	background: #eeeeee !important;
+	border: 1px solid #c7c7c7 !important;
+}
+
+.ui-menu-list {
+	padding: 20px important;
+}
+
+.ui-state-hover {
+	
+}
+
+.tabAtendimento .ui-state-active {
+	border: 1px solid #7096ab;
+	background: #262262;
+	font-weight: bold;
+	color: white !important;
+}
+
+.ui-icon-arrowrefresh-1-s .ui-icon {
+	background: red !important;
+}
+
+#fchatend {
+	background: red !important;
+}
+
+.submenu .ui-icon {
+	background-color: transparent;
+}
+
+.ui-c {
+	color: white !important;
+}
+
+.ui-button-text .ui-state-active {
+	background: pink !important;
+}
+
+.ui-datepicker-calendar   .ui-state-active {
+	background: #959595 !important;
+	color: white !important;
+	border: none !important;
+}
+
+.ui-datepicker {
+	background: #c9c9c9 !important;
+}
+
+/*  Estado ativo dos botĆµes do DataTable -------------------------------------- */
+.ui-button.ui-state-active .ui-button-text.ui-c {
+	background: #352f88 !important;
+}
+
+input[disabled] {
+	color: black !important;
+	background: #efefef !important;
+	border: #dddddd !important;
+}
+
+select[disabled] {
+	color: black !important;
+	background: #efefef !important;
+	border: #dddddd !important;
+}
+
+.ui-state-error {
+	background: #C80000 !important;
+	color: white !important;
+}
+
+.ui-datatable-tablewrapper {
+	color: white !important;
+}
+
+.ui-widget .ui-menuitem .ui-corner-all .ui-menu-parent .ui-menuitem-active
+	{
+	background: red !important;
+}
+
+.ui-button-text .ui-c, .ui-menu .ui-menuitem-text,
+	.ui-c {
+	color: #FFF !important;
+}
+
+.ui-menuitem .ui-menuitem-active {
+	background: red !important;
+}
+
+.ui-menu .ui-menuitem-link {
+	background: #262262 !important;
+}
+
+.ui-fieldset .ui-fieldset-toggler .ui-icon {
+	color: red !important;
+}
+
+.ui-fieldset  .ui-icon {
+	color: red !important;
+}
+
+.ui-state-highlight {
+	background-color: green;
+}
+
+.member-state-1 {
+	padding: 5px;
+	background: #e2e242 !important;
+}
+
+.member-state-2 {
+	padding: 5px;
+	background: #4bb2c5 !important;
+}
+
+.member-state-101 {
+	padding: 5px;
+	background: #42e242 !important;
+}
+
+.member-state-100 {
+	padding: 5px;
+	background: #e2e242 !important;
+}
+
+.ui-datagrid-content {
+	padding: 5px !important;
+	background: none !important;
+	border: none;
+}
+
+.login-panel {
+	margin-top: 15%;
+	margin-left: 25%;
+	background: white;
+	height: 50px !important;
+	width: 300px !important;
+}
+
+#portal-menu-bar {
+	background: white !important
+}
+
+#footer-portal {
+	background: #262262;
+	color: aliceblue;
+	padding-left: 20px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	width: 98.4%;
+    position: absolute;
+    z-index: 123;
+}
+
+.footer {
+	bottom: 0;
+	position: absolute;
+}
+
+.footer-links {
+	margin-left: 45%;
+	margin-top: 10px;
+	color: #707070 !important;
+}
+
+.progress-bar .ui-progressbar-value {
+	background: #55AA7F;
+}
+
+.progress-bar-stopped .ui-progressbar-value {
+	background: #557FAA;
+}
+
+.btNeutral .ui-button-text{
+	background: #939598 !important;
+}
+
+.btNeutral .ui-button-text:hover{
+	background: #6d6f71 !important;
+}
+
+.ui-button .ui-button-text{
+	line-height: 1.4 !important; 
+}
+
+#formcustomer, .ui-tabs, .datat .ui-inputtext, .ui-selectonemenu-panel .ui-widget-content,
+	.ui-accordion-content, .fundoBranco, .ui-layout-unit,
+	.ui-dialog-content, .ui-datatable-scrollable-footer, .ui-datepicker {
+	background: #FFF !important;
 }

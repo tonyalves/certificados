@@ -46,6 +46,7 @@ public class CertificateReportGenerator {
 		JasperPrint print = JasperFillManager.fillReport(path + "certificate.jasper", parametros, beanColDataSource);
 		if (print.getPages().size() > 1)
 			print.removePage(1);
+		
 		filePDFName =  "certificate_" + certificate.getLecturer() + "_" + formattedCurrentDate() + ".pdf";
 		JasperExportManager.exportReportToPdfFile(print, certificate.getPathToGenerate() + filePDFName);
 	}

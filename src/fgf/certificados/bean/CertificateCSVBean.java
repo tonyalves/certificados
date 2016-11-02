@@ -8,13 +8,16 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
 import org.primefaces.model.UploadedFile;
 
+import fgf.certificados.service.CertificateService;
 import fgf.certificate.model.Certificate;
 import net.sf.jasperreports.engine.JRException;
 
@@ -27,8 +30,30 @@ public class CertificateCSVBean {
 	private String pathGenerator;
 	private UploadedFile logo;
 	private UploadedFile signature;
+	private String eventLocation;
 	
+	@ManagedProperty(value = "#{certificateService}")
+	private CertificateService service;
+	
+	public String validateData() {
+		if(pathGenerator == null || pathGenerator.isEmpty())
+			return "Gerar em";
+		else if (eventLocation == null || eventLocation.isEmpty())
+			return "Local do evento";
+		else if(certificate.getSignature() == null || certificate.getSignature().isEmpty())
+			return "Assinatura";
+		else if(certificate.getOffice() == null || certificate.getOffice().isEmpty())
+			return "Cargo";
+		else 
+			return null;
+	}
 	public void uploadCSV() {
+		String field = validateData();
+		if(field  != null) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atenção!", "Você não preencheu o campo "+field));
+			return;
+		}
+		
 		BufferedReader br = null;
 		List<Certificate> certificates = new ArrayList<>();
 
@@ -36,27 +61,30 @@ public class CertificateCSVBean {
 				.getContext();
 		String path = servletContext.getRealPath("/") + "resources/";
 
-		if (logo != null && logo.getFileName() != null && !logo.getFileName().isEmpty()) {
-			try {
-				logo.write(path + logo.getFileName());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		if(csv.getFileName() == null || csv.getFileName().isEmpty()) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atenção!", "Você não escolheu o arquivo CSV."));
+			return ;
 		}
-
-		if (signature != null && signature.getFileName() != null && !signature.getFileName().isEmpty()) {
-			try {
-				signature.write(path + signature.getFileName());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		
+		if(logo.getFileName() == null || logo.getFileName().isEmpty()) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atenção!", "Você não escolheu a logo do evento."));
+			return ;
 		}
+		
+		if(signature.getFileName() == null || signature.getFileName().isEmpty()) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atenção!", "Você não escolheu a assinatura."));
+			return ;
+		}
+		service.writeImageToFile(logo, path);
+		service.writeImageToFile(signature, path);
 		
 		try {
 			Reader reader = new InputStreamReader(csv.getInputstream());
 			br = new BufferedReader(reader);
 		} catch (IOException e) {
 			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Falha", "Não foi possível gerar certificados: "+e.getMessage()));
+			return;
 		}
 		String s = null;
 
@@ -69,17 +97,20 @@ public class CertificateCSVBean {
 				String[] lineSplited = s.split(";");
 				Certificate certificate = new Certificate();
 
+				certificate.setSignature(this.certificate.getSignature());
+				certificate.setOffice(this.certificate.getOffice());
 				certificate.setPathLogo(path + logo.getFileName());
 				certificate.setPathSignature(path + signature.getFileName());
 				certificate.setPathToGenerate(pathGenerator);
-				certificate.setText(this.certificate.getText());
-				certificate.setEventDateStr(lineSplited[2]);
-				certificate.setLecturer(lineSplited[1]);
 				
+				certificate.setLecturer(lineSplited[1]);
+				certificate.setText(lineSplited[0], lineSplited[2], eventLocation);
 				certificates.add(certificate);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Falha", "Não foi possível gerar certificados: "+e.getMessage()));
+			return;
 		}
 		
 		CertificateReportGenerator report = null;
@@ -89,9 +120,12 @@ public class CertificateCSVBean {
 				report.generateReport();
 			} catch (FileNotFoundException | JRException e) {
 				e.printStackTrace();
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Falha", "Não foi possível gerar certificados: "+e.getMessage()));
+				return;
 			}
 		}
 
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Certificados salvos em: "+pathGenerator));
 	}
 
 	public Certificate getCertificate() {
@@ -133,7 +167,20 @@ public class CertificateCSVBean {
 	public void setSignature(UploadedFile signature) {
 		this.signature = signature;
 	}
+
+	public CertificateService getService() {
+		return service;
+	}
+
+	public void setService(CertificateService service) {
+		this.service = service;
+	}
 	
+	public String getEventLocation() {
+		return eventLocation;
+	}
 	
-	
+	public void setEventLocation(String eventLocation) {
+		this.eventLocation = eventLocation;
+	}
 }

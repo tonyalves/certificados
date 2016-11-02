@@ -7,54 +7,50 @@
 </h:head>
 <h:body>
 	<h:form enctype="multipart/form-data">
+		<p:messages autoUpdate="true" showDetail="true" closable="true" />
 		<p:tabView>
 			<p:tab title="Cadastrar certificado">
 				<h:panelGrid columns="2">
-					
 
-						<p:outputLabel for="input" value="Palestrante" />
-						<p:inputText id="input" size="70"
-							value="#{certificateBean.certificate.lecturer}" />
+					<p:outputLabel for="input" value="Palestrante" />
+					<p:inputText id="input" size="70"
+						value="#{certificateBean.certificate.lecturer}" />
 
-						<p:outputLabel for="area" value="Texto do certificado" />
-						<p:editor id="area" value="#{certificateBean.certificate.text}" />
+					<p:outputLabel for="area" value="Texto do certificado" />
+					<p:inputTextarea id="area" value="#{certificateBean.certificate.text}" rows="10" cols="70" />
 
-						<p:outputLabel for="calendar" value="Data do evento" />
-						<p:calendar id="calendar"
-							value="#{certificateBean.certificate.eventDate}" />
+					<p:outputLabel for="signature" value="Assinatura" />
+					<p:inputText id="signature"
+						value="#{certificateBean.certificate.signature}" />
 
-						<p:outputLabel for="signature" value="Assinatura" />
-						<p:inputText id="signature"
-							value="#{certificateBean.certificate.signature}" />
+					<p:outputLabel for="signatureOffice" value="Cargo" />
+					<p:inputText id="signatureOffice"
+						value="#{certificateBean.certificate.office}" />
 
-						<p:outputLabel for="signatureOffice" value="Cargo" />
-						<p:inputText id="signatureOffice"
-							value="#{certificateBean.certificate.office}" />
+					<p:fileUpload value="#{certificateBean.signature}" mode="simple"
+						skinSimple="true" label="Assinatura" />
+					<p:fileUpload value="#{certificateBean.logo}" mode="simple"
+						skinSimple="true" label="Logo do Evento">
+					</p:fileUpload>
 
-						<p:fileUpload value="#{certificateBean.signature}" mode="simple"
-							skinSimple="true" label="Assinatura" />
-						<p:fileUpload value="#{certificateBean.logo}" mode="simple"
-							skinSimple="true" label="Logo do Evento">
-						</p:fileUpload>
+					<p:commandButton value="Gerar certificado" ajax="false"
+						styleClass="btnDefault"
+						action="#{certificateBean.generateCertificate()}" />
 
-						<p:commandButton value="Gerar certificado" ajax="false"
-							styleClass="btnDefault"
-							action="#{certificateBean.generateCertificate()}" />
-					
 				</h:panelGrid>
 			</p:tab>
 			<p:tab title="Importar CSV">
 				<h:panelGrid columns="2">
 					<p:outputLabel value="Gerar em: " />
-					<p:inputText value="#{certificateCSVBean.pathGenerator}" />
+					<p:inputText value="#{certificateCSVBean.pathGenerator}" autocomplete="true" />
 					<p:outputLabel value="Arquivo CSV" />
-					<p:fileUpload value="#{certificateCSVBean.csv}" mode="simple"
+					<p:fileUpload value="#{certificateCSVBean.csv}" mode="simple" 
+					requiredMessage="Escolha o arquivo CSV"
 						skinSimple="true" label="Procurar..." />
 
-					<p:outputLabel for="areaCSV" value="Texto do certificado" />
-					<p:editor id="areaCSV"
-						value="#{certificateCSVBean.certificate.text}" />
-
+					<p:outputLabel for="locationEvent" value="Local do Evento: " />
+					<p:inputText id="locationEvent" 
+						value="#{certificateCSVBean.eventLocation}" />
 					<p:outputLabel for="signatureCSV" value="Assinatura" />
 					<p:inputText id="signatureCSV"
 						value="#{certificateCSVBean.certificate.signature}" />

@@ -16,6 +16,7 @@ public class Certificate {
 	private String pathLogo;
 	private String pathSignature;
 	private String pathToGenerate;
+	private String certificateDate;
 	
 	public String getEventDateStr() {
 		if(eventDate == null)
@@ -51,7 +52,7 @@ public class Certificate {
 
 	public String getText() {
 		if(text == null) {
-			text = "Ministrou a atividade intitulada: “NOME_DO_EVENTO”, realizada na "
+			text = "Ministrou a atividade intitulada: \"NOME_DO_EVENTO\", realizada na "
 			+"LOCAL_DO_EVENTO, em DATA_DO_EVENTO.";
 		}
 		return text;
@@ -59,6 +60,11 @@ public class Certificate {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+	
+	public void setText(String eventName, String eventDate, String eventLocation) {
+		this.text = "Ministrou a atividade intitulada: \"<b>"+eventName+"</b>\", realizada na "
+				+""+eventLocation+", em "+eventDate+".";;
 	}
 
 	public Date getEventDate() {
@@ -108,4 +114,19 @@ public class Certificate {
 	public void setPathToGenerate(String pathToGenerate) {
 		this.pathToGenerate = pathToGenerate;
 	}
+
+	public String getCertificateDate() {
+		if(null == certificateDate) {
+			DateUtil util = new DateUtil();
+			
+			this.certificateDate = util.formattedDate(new Date(), " de ");
+		}
+		return certificateDate;
+	}
+
+	public void setCertificateDate(String certificateDate) {
+		this.certificateDate = certificateDate;
+	}
+	
+	
 }

@@ -3,6 +3,7 @@ package fgf.certificados.bean;
 import java.io.FileNotFoundException;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -31,12 +32,38 @@ public class CertificateBean {
 	public void init() {
 	}
 
+	public String validateData() {
+		if(certificate.getLecturer() == null || certificate.getLecturer().isEmpty())
+			return "Palestrante";
+		else if(certificate.getSignature() == null || certificate.getSignature().isEmpty())
+			return "Assinatura";
+		else if(certificate.getOffice() == null || certificate.getOffice().isEmpty())
+			return "Cargo";
+		else 
+			return null;
+	}
 
 	public String generateCertificate() {
+		String field = validateData();
+		if(field  != null) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atenção!", "Você não preencheu o campo "+field));
+			return null;
+		}
+		
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
 		String path = servletContext.getRealPath("/") + "resources/";
 
+		if(logo.getFileName() == null || logo.getFileName().isEmpty()) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atenção!", "Você não escolheu a logo do evento."));
+			return null;
+		}
+		
+		if(signature.getFileName() == null || signature.getFileName().isEmpty()) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atenção!", "Você não escolheu a assinatura."));
+			return null;
+		}
+			
 		service.writeImageToFile(logo, path);
 		service.writeImageToFile(signature, path);
 
