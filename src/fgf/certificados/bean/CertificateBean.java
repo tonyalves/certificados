@@ -10,6 +10,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
+import org.primefaces.component.remotecommand.RemoteCommand;
+import org.primefaces.component.remotecommand.RemoteCommandRenderer;
 import org.primefaces.model.UploadedFile;
 
 import fgf.certificados.service.CertificateService;
@@ -42,6 +44,10 @@ public class CertificateBean {
 		else 
 			return null;
 	}
+	
+	public void onRemote(){
+		System.out.println("From remote");
+	}
 
 	public String generateCertificate() {
 		String field = validateData();
@@ -49,6 +55,7 @@ public class CertificateBean {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atenção!", "Você não preencheu o campo "+field));
 			return null;
 		}
+		
 		
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();

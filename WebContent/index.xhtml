@@ -7,6 +7,7 @@
 </h:head>
 <h:body>
 	<h:form enctype="multipart/form-data">
+	<p:remoteCommand actionListener="#{certificateBean.onRemote}" name="remote" />
 		<p:messages autoUpdate="true" showDetail="true" closable="true" />
 		<p:tabView>
 			<p:tab title="Cadastrar certificado">
