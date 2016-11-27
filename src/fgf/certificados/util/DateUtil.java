@@ -23,6 +23,6 @@ public class DateUtil {
 				"Maio", "Junho", "Julho", "Agosto", "Setembro",
 				"Outubro", "Novembro", "Dezembro");
 		
-		return months.get(month - 1);
+		return months.get(month);
 	}
 }

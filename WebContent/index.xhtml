@@ -7,7 +7,8 @@
 </h:head>
 <h:body>
 	<h:form enctype="multipart/form-data">
-	<p:remoteCommand actionListener="#{certificateBean.onRemote}" name="remote" />
+		<p:remoteCommand actionListener="#{certificateBean.onRemote}"
+			name="remote" />
 		<p:messages autoUpdate="true" showDetail="true" closable="true" />
 		<p:tabView>
 			<p:tab title="Cadastrar certificado">
@@ -18,7 +19,8 @@
 						value="#{certificateBean.certificate.lecturer}" />
 
 					<p:outputLabel for="area" value="Texto do certificado" />
-					<p:inputTextarea id="area" value="#{certificateBean.certificate.text}" rows="10" cols="70" />
+					<p:inputTextarea id="area"
+						value="#{certificateBean.certificate.text}" rows="10" cols="70" />
 
 					<p:outputLabel for="signature" value="Assinatura" />
 					<p:inputText id="signature"
@@ -42,21 +44,22 @@
 			</p:tab>
 			<p:tab title="Importar CSV">
 				<h:panelGrid columns="2">
-					<p:outputLabel value="Gerar em: " />
-					<p:inputText value="#{certificateCSVBean.pathGenerator}" autocomplete="true" />
 					<p:outputLabel value="Arquivo CSV" />
-					<p:fileUpload value="#{certificateCSVBean.csv}" mode="simple" 
-					requiredMessage="Escolha o arquivo CSV"
-						skinSimple="true" label="Procurar..." />
+					<p:fileUpload value="#{certificateCSVBean.csv}" mode="simple"
+						requiredMessage="Escolha o arquivo CSV: " skinSimple="true"
+						label="Procurar..." />
+
+					<p:outputLabel for="pretext" value="Pré-texto: " />
+					<p:inputText id="pretext" value="#{certificateCSVBean.preText}" />
 
 					<p:outputLabel for="locationEvent" value="Local do Evento: " />
-					<p:inputText id="locationEvent" 
+					<p:inputText id="locationEvent"
 						value="#{certificateCSVBean.eventLocation}" />
-					<p:outputLabel for="signatureCSV" value="Assinatura" />
+					<p:outputLabel for="signatureCSV" value="Assinatura: " />
 					<p:inputText id="signatureCSV"
 						value="#{certificateCSVBean.certificate.signature}" />
 
-					<p:outputLabel for="signatureOfficeCSV" value="Cargo" />
+					<p:outputLabel for="signatureOfficeCSV" value="Cargo: " />
 					<p:inputText id="signatureOfficeCSV"
 						value="#{certificateCSVBean.certificate.office}" />
 
@@ -67,10 +70,28 @@
 						skinSimple="true" label="Logo do Evento">
 					</p:fileUpload>
 					<p:commandButton value="Gerar certificados" ajax="false"
-						action="#{certificateCSVBean.uploadCSV()}" />
+						onclick="PrimeFaces.monitorDownload(start, stop); ">	 
+						<p:fileDownload value="#{certificateCSVBean.uploadCSV()}" />
+					</p:commandButton>
+
+					<script type="text/javascript">
+						function start() {
+							PF('statusDialog').show();
+						}
+
+						function stop() {
+							PF('statusDialog').hide();
+						}
+					</script>
+					<p:dialog modal="true" header="Processando" closable="false" draggable="false"
+						widgetVar="statusDialog">
+						<h:outputText
+							value="Aguarde. Seus certificados estão sendo processados." />
+					</p:dialog>
 				</h:panelGrid>
 			</p:tab>
 		</p:tabView>
+
 	</h:form>
 </h:body>
 </html>

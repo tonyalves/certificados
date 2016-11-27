@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="certificate" pageWidth="792" pageHeight="480" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="1fcd3c60-8e00-4670-99ac-69c7a6bf9bc7">
 	<property name="ireport.zoom" value="1.100000000000002"/>
 	<property name="ireport.x" value="45"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="127"/>
 	<field name="lecturer" class="java.lang.String"/>
 	<field name="text" class="java.lang.String"/>
 	<field name="signature" class="java.lang.String"/>
@@ -47,7 +47,7 @@
 				<text><![CDATA[A Faculdade Integrada da Grande Fortaleza certifica que]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Transparent" x="170" y="45" width="324" height="20" uuid="62e06c2e-56c6-4d51-adb2-a5b0f7fb2dd1"/>
+				<reportElement mode="Transparent" x="170" y="45" width="324" height="30" uuid="62e06c2e-56c6-4d51-adb2-a5b0f7fb2dd1"/>
 				<textElement markup="styled">
 					<font size="16" isBold="true" isStrikeThrough="false" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="1_1_2" spacingAfter="30"/>
@@ -83,7 +83,7 @@
 				<textFieldExpression><![CDATA[$F{office}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="243" y="40" width="223" height="38" uuid="0c88dd07-f6c8-4531-8c45-1e3f83b843b7"/>
+				<reportElement x="296" y="40" width="223" height="38" uuid="0c88dd07-f6c8-4531-8c45-1e3f83b843b7"/>
 				<imageExpression><![CDATA[$F{pathSignature}]]></imageExpression>
 			</image>
 			<textField>

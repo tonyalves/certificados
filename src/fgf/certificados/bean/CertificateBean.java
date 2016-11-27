@@ -1,6 +1,8 @@
 package fgf.certificados.bean;
 
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -10,8 +12,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
-import org.primefaces.component.remotecommand.RemoteCommand;
-import org.primefaces.component.remotecommand.RemoteCommandRenderer;
 import org.primefaces.model.UploadedFile;
 
 import fgf.certificados.service.CertificateService;
@@ -45,10 +45,6 @@ public class CertificateBean {
 			return null;
 	}
 	
-	public void onRemote(){
-		System.out.println("From remote");
-	}
-
 	public String generateCertificate() {
 		String field = validateData();
 		if(field  != null) {
@@ -56,11 +52,18 @@ public class CertificateBean {
 			return null;
 		}
 		
-		
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
-		String path = servletContext.getRealPath("/") + "resources/";
-
+		
+		URL resource = null;
+		try {
+			resource	= servletContext.getResource("resources");
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String path = resource.getPath();
+		
 		if(logo.getFileName() == null || logo.getFileName().isEmpty()) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atenção!", "Você não escolheu a logo do evento."));
 			return null;
@@ -79,10 +82,12 @@ public class CertificateBean {
 		certificate.setPathToGenerate(path);
 		certificate.setLogoFGF(path + "logo-top.png");
 		CertificateReportGenerator report = null;
+		report = new CertificateReportGenerator(certificate);
 		try {
-			report = new CertificateReportGenerator(certificate);
 			report.generateReport();
-		} catch (FileNotFoundException | JRException e) {
+		} catch (JRException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
@@ -116,15 +121,11 @@ public class CertificateBean {
 		this.signature = signature;
 	}
 
-
 	public CertificateService getService() {
 		return service;
 	}
 
-
 	public void setService(CertificateService service) {
 		this.service = service;
 	}
-
-	
 }

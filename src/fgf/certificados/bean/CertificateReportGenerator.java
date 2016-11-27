@@ -1,6 +1,9 @@
 package fgf.certificados.bean;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,11 +30,18 @@ public class CertificateReportGenerator {
 		this.certificate = certificate;
 	}
 
-	public void generateReport() throws JRException, FileNotFoundException {
+	public File generateReport() throws JRException, FileNotFoundException {
 
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
 				.getContext();
-		String path = servletContext.getRealPath("/") + "resources/";
+		
+		URL resource = null;
+		try {
+			resource	= servletContext.getResource("resources");
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+		}
+		String path = resource.getPath();
 		String sourceFile = path + "certificate.jrxml";
 
 		JasperCompileManager.compileReportToFile(sourceFile);
@@ -46,11 +56,16 @@ public class CertificateReportGenerator {
 		JasperPrint print = JasperFillManager.fillReport(path + "certificate.jasper", parametros, beanColDataSource);
 		if (print.getPages().size() > 1)
 			print.removePage(1);
+		if(certificate.getPathToGenerate() == null)
+			certificate.setPathToGenerate("");
+		filePDFName =  "certificate_" + certificate.getLecturer() + "_" + formattedCurrentDate() + "_"+System.currentTimeMillis()+ ".pdf";
+		JasperExportManager.exportReportToPdfFile(print, certificate.getPathToGenerate()+filePDFName);
 		
-		filePDFName =  "certificate_" + certificate.getLecturer() + "_" + formattedCurrentDate() + ".pdf";
-		JasperExportManager.exportReportToPdfFile(print, certificate.getPathToGenerate() + filePDFName);
+		File pdfFile = new File(filePDFName);
+		return pdfFile;
 	}
-
+	
+	
 	public String formattedCurrentDate() {
 		DateUtil util = new DateUtil();
 		return util.formattedDate(new Date(), "_");

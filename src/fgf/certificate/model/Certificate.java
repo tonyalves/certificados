@@ -9,13 +9,13 @@ public class Certificate {
 	private String lecturer;
 	private String event;
 	private String text;
+	private String pathToGenerate;
 	private Date eventDate;
 	private String signature;
 	private String office;
 	private String eventDateStr;
 	private String pathLogo;
 	private String pathSignature;
-	private String pathToGenerate;
 	private String certificateDate;
 	private String logoFGF ;
 	
@@ -63,8 +63,8 @@ public class Certificate {
 		this.text = text;
 	}
 	
-	public void setText(String eventName, String eventDate, String eventLocation) {
-		this.text = "Ministrou a atividade intitulada: \"<b>"+eventName+"</b>\", realizada na "
+	public void setText(String preText, String eventName, String eventDate, String eventLocation) {
+		this.text = preText+" \"<b>"+eventName+"</b>\", realizada no(a) "
 				+""+eventLocation+", em "+eventDate+".";;
 	}
 
@@ -108,14 +108,6 @@ public class Certificate {
 		this.pathSignature = pathSignature;
 	}
 
-	public String getPathToGenerate() {
-		return pathToGenerate;
-	}
-
-	public void setPathToGenerate(String pathToGenerate) {
-		this.pathToGenerate = pathToGenerate;
-	}
-
 	public String getCertificateDate() {
 		if(null == certificateDate) {
 			DateUtil util = new DateUtil();
@@ -135,6 +127,14 @@ public class Certificate {
 
 	public void setLogoFGF(String logoFGF) {
 		this.logoFGF = logoFGF;
+	}
+
+	public String getPathToGenerate() {
+		return pathToGenerate;
+	}
+
+	public void setPathToGenerate(String pathToGenerate) {
+		this.pathToGenerate = pathToGenerate;
 	}
 	
 	
